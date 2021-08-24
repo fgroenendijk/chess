@@ -11,53 +11,45 @@ if (array_key_exists("columns", $options)) {
     $columns = intval($options["columns"]);
 }
 
-foreach (['Queen', 'Rook'] as $pieceClassName) {
+$items = ['Rook'];
+$items = ['Queen'];
+
+foreach ($items as $pieceClassName) {
+//foreach (['Queen', 'Rook'] as $pieceClassName) {
     $sha1FoundBoards = [];
     $foundBoards = [];
 
     $className = "classes\\" . $pieceClassName;
 
-    for ($xOffset = 0; $xOffset < 7; $xOffset++) {
-        for ($yOffset = 0; $yOffset < 7; $yOffset++) {
+    for ($xOffset = 0; $xOffset < 8; $xOffset++) {
+        for ($yOffset = 0; $yOffset < 8; $yOffset++) {
             $piece = new $className();
 
-            $totalQueens = 1;
+            $totalPieces = 1;
             list($x, $y) = $piece->searchFirstFreeSquare($xOffset, $yOffset);
             $piece->place($x, $y);
 
             while ((list($x, $y) = $piece->searchFirstFreeSquare())) {
                 $piece->place($x, $y);
-                $totalQueens++;
+                $totalPieces++;
             }
 
-            if ($totalQueens > 6) {
-                $queenPositions = $piece->getPositions();
-                $sha1FoundBoard = sha1(json_encode($queenPositions));
+
+            if ($totalPieces > 6) {
+                $piecePositions = $piece->getPositions();
+                $sha1FoundBoard = sha1(json_encode($piecePositions));
                 if (!in_array($sha1FoundBoard, $sha1FoundBoards)) {
                     $sha1FoundBoards[] = $sha1FoundBoard;
                     $foundBoards[] = [
                         "sha1" => $sha1FoundBoard,
-                        "board" => $queenPositions
+                        "board" => $piecePositions
                     ];
                 }
             }
         }
     }
 
-    $character = "";
-
-    switch ($pieceClassName) {
-        case "Rook":
-            $character = "#";
-            break;
-        case "Queen":
-            $character = "$";
-            break;
-        default:
-            $character = "D";
-    }
-
-    $layout = new classes\Layout($character);
+    $layout = new classes\Layout($piece->character);
 
     $layout->printBoardColumns($foundBoards, $columns);
 

@@ -4,13 +4,14 @@ namespace classes;
 
 abstract class Piece
 {
+    public $character = "D";
     protected $pieces;
     protected $attackableSquares;
 
     public function __construct()
     {
-        $this->pieces = array_fill(0, 7, array_fill(0, 7, false));
-        $this->attackableSquares = array_fill(0, 7, array_fill(0, 7, false));
+        $this->pieces = array_fill(0, 8, array_fill(0, 8, false));
+        $this->attackableSquares = array_fill(0, 8, array_fill(0, 8, false));
     }
 
     abstract public function place($x, $y);
@@ -30,8 +31,8 @@ abstract class Piece
      */
     public function searchFirstFreeSquare($xOffset = 0, $yOffset = 0)
     {
-        for ($y = $yOffset; $y < 7; $y++) {
-            for ($x = $xOffset; $x < 7; $x++) {
+        for ($y = $yOffset; $y < 8; $y++) {
+            for ($x = $xOffset; $x < 8; $x++) {
                 if ($this->pieces[$x][$y] || $this->attackableSquares[$x][$y]) {
                     continue;
                 }

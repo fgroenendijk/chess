@@ -2,10 +2,17 @@
 
 namespace classes;
 
-// require_once "Piece.php";
-
 class Queen extends Piece
 {
+    // protected $pieces;
+    // protected $attackableSquares;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->character = "$";
+    }
+
     /**
      * Place a Queen at a certain position and mark the places of the board that
      * can be taken by the queen
@@ -25,14 +32,14 @@ class Queen extends Piece
             return false;
         }
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             if ($i === $y) {
                 $this->pieces[$x][$i] = true;
             } else {
                 $this->attackableSquares[$x][$i] = true;
             }
         }
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             if ($i === $x) {
                 $this->pieces[$i][$y] = true;
             } else {
@@ -65,7 +72,7 @@ class Queen extends Piece
 
         for ($i = $maxPosition; $i >= 0; $i--) {
             if ($topRight) {
-                if ($x < 6 && $y > 0) {
+                if ($x < 7 && $y > 0) {
                     $x++;
                     $y--;
                 } else {
@@ -97,7 +104,7 @@ class Queen extends Piece
         $calculatedX = $x;
         $calculatedY = $y;
 
-        while (( ($topRight && $calculatedX >= 0) || (!$topRight && $calculatedX < 7) ) && $calculatedY < 7) {
+        while (( ($topRight && $calculatedX >= 0) || (!$topRight && $calculatedX < 8) ) && $calculatedY < 8) {
             if (!$this->pieces[$calculatedX][$calculatedY]) {
                 $this->attackableSquares[$calculatedX][$calculatedY] = true;
             }

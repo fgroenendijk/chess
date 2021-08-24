@@ -2,10 +2,14 @@
 
 namespace classes;
 
-// require_once "Piece.php";
-
 class Rook extends Piece
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->character = "#";
+    }
+
     /**
      * Place a Rook at a certain position and mark the places of the board that
      * can be taken by the rook
@@ -25,26 +29,20 @@ class Rook extends Piece
             return false;
         }
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             if ($i === $y) {
                 $this->pieces[$x][$i] = true;
             } else {
                 $this->attackableSquares[$x][$i] = true;
             }
         }
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             if ($i === $x) {
                 $this->pieces[$i][$y] = true;
             } else {
                 $this->attackableSquares[$i][$y] = true;
             }
         }
-
-        // list($calculatedX, $calculatedY) = $this->searchStart($x, $y);
-        // $this->markOccupiedSpaces($calculatedX, $calculatedY);
-
-        // list($calculatedX, $calculatedY) = $this->searchStart($x, $y, true);
-        // $this->markOccupiedSpaces($calculatedX, $calculatedY, true);
 
         return true;
     }
