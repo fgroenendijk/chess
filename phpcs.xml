@@ -3,5 +3,7 @@
     <rule ref="PEAR">
         <exclude name="PEAR.Commenting.FileComment.Missing"/>
         <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+        <exclude name="PEAR.Commenting.ClassComment.Missing"/>
+        <exclude name="Generic.Files.LineLength.TooLong"/>
     </rule>
 </ruleset>
