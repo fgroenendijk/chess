@@ -1,6 +1,6 @@
 <?php
 
-namespace Chess;
+namespace classes;
 
 class Layout
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Chess;
+namespace classes;
 
-require_once "Piece.php";
+// require_once "Piece.php";
 
 class Rook extends Piece
 {

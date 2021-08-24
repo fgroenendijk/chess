@@ -1,6 +1,8 @@
 <?php
 
-require_once "Piece.php";
+namespace classes;
+
+// require_once "Piece.php";
 
 class Queen extends Piece
 {
