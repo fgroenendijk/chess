@@ -1,13 +1,14 @@
 <?php
 
-require_once "classes/Queens.php";
+require_once "classes/Layout.php";
+require_once "classes/Queen.php";
 
 $sha1FoundBoards = [];
 $foundBoards = [];
 
 for ( $xOffset = 0; $xOffset < 7; $xOffset++ ) {
     for ( $yOffset = 0; $yOffset < 7; $yOffset++ ) {
-        $queens = new Queens();
+        $queens = new Queen();
 
         $totalQueens = 1;
         list($x, $y) = $queens->searchFirstFreeSquare($xOffset, $yOffset);
@@ -32,7 +33,9 @@ for ( $xOffset = 0; $xOffset < 7; $xOffset++ ) {
     }
 }
 
-$queens->printBoardColumns($foundBoards, 3);
+$layout = new Layout();
+
+$layout->printBoardColumns($foundBoards, 3);
 
 print_r("Total number of possibilities: " . count($sha1FoundBoards) . "\n");
 
