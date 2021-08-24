@@ -46,11 +46,14 @@ foreach (['Queen', 'Rook'] as $pieceClassName) {
     $character = "";
 
     switch ($pieceClassName) {
-    case "Rook": $character = "#";
-        break;
-    case "Queen": $character = "$";
-        break;
-    default: $character = "D";
+        case "Rook":
+            $character = "#";
+            break;
+        case "Queen":
+            $character = "$";
+            break;
+        default:
+            $character = "D";
     }
 
 
