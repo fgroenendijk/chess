@@ -11,11 +11,7 @@ if (array_key_exists("columns", $options)) {
     $columns = intval($options["columns"]);
 }
 
-$items = ['Rook'];
-$items = ['Queen'];
-
-foreach ($items as $pieceClassName) {
-//foreach (['Queen', 'Rook'] as $pieceClassName) {
+foreach (['Queen', 'Rook'] as $pieceClassName) {
     $sha1FoundBoards = [];
     $foundBoards = [];
 

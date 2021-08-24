@@ -43,15 +43,17 @@ class Layout
         while ($boardIndex < $maxBoards) {
             $lines = null;
             for ($i = 0; $i < $columns; $i++) {
-                $output = $this->boardLayout($boards[$boardIndex]["board"]);
-                if (empty($lines)) {
-                    $lines = $output;
-                } else {
-                    foreach ($lines as $index => &$line) {
-                        $line .= "   "    . $output[$index];
+                if (!empty($boards[$boardIndex])) {
+                    $output = $this->boardLayout($boards[$boardIndex]["board"]);
+                    if (empty($lines)) {
+                        $lines = $output;
+                    } else {
+                        foreach ($lines as $index => &$line) {
+                            $line .= "   "    . $output[$index];
+                        }
                     }
+                    $boardIndex++;
                 }
-                $boardIndex++;
             }
             for ($i = 0; $i < count($lines); $i++) {
                 print_r($lines[$i] . "\n");
