@@ -1,16 +1,25 @@
 <?php
 
+namespace Chess;
+
 class Layout
 {
-    function boardLayout($queens)
+    private $character;
+
+    public function __construct($character)
+    {
+        $this->character = $character;
+    }
+
+    private function boardLayout($pieces)
     {
         $board = "╔═════╦═════╦═════╦═════╦═════╦═════╦═════╗";
         $output[] = $board;
         for ($y = 0; $y < 7; $y++) {
             $board = "║";
             for ($x = 0; $x < 7; $x++) {
-                if ($queens[$x][$y] === true) {
-                    $board .= "  $  ║";
+                if ($pieces[$x][$y] === true) {
+                    $board .= "  $this->character  ║";
                 } else {
                     $board .= "  .  ║";
                 }
@@ -27,7 +36,7 @@ class Layout
         return $output;
     }
 
-    function printBoardColumns($boards, $columns = 1)
+    public function printBoardColumns($boards, $columns = 1)
     {
         $maxBoards = count($boards);
         $boardIndex = 0;

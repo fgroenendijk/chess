@@ -4,9 +4,6 @@ require_once "Piece.php";
 
 class Queen extends Piece
 {
-    protected $pieces;
-    protected $squares;
-
     /**
      * Place a Queen at a certain position and mark the places of the board that
      * can be taken by the queen
@@ -16,12 +13,13 @@ class Queen extends Piece
      *
      * @return true if placing a queen was successful
      */
-    function placeQueen($x, $y)
+    public function place($x, $y)
     {
+        // Convert to zero based value
         $x = $x - 1;
         $y = $y - 1;
 
-        if ($this->pieces[$x][$y] === true || $this->squares[$x][$y] === true) {
+        if ($this->pieces[$x][$y] === true || $this->attackableSquares[$x][$y] === true) {
             return false;
         }
 
@@ -29,14 +27,14 @@ class Queen extends Piece
             if ($i === $y) {
                 $this->pieces[$x][$i] = true;
             } else {
-                $this->squares[$x][$i] = true;
+                $this->attackableSquares[$x][$i] = true;
             }
         }
         for ($i = 0; $i < 7; $i++) {
             if ($i === $x) {
                 $this->pieces[$i][$y] = true;
             } else {
-                $this->squares[$i][$y] = true;
+                $this->attackableSquares[$i][$y] = true;
             }
         }
 
@@ -50,7 +48,8 @@ class Queen extends Piece
     }
 
     /**
-     * Search for the first free position to place a Queen
+     * Search for the first capturable position by a Queen either starting from the
+     * top right position or the bottom left
      *
      * @param $x        x position of the piece
      * @param $y        y position of the piece
@@ -58,7 +57,7 @@ class Queen extends Piece
      *
      * @return array of x and y position
      */
-    function searchStart($x, $y, $topRight = false)
+    private function searchStart($x, $y, $topRight = false)
     {
         $maxPosition = max($x, $y);
 
@@ -91,14 +90,14 @@ class Queen extends Piece
      *
      * @return array of x and y position
      */
-    function markOccupiedSpaces($x, $y, $topRight = false)
+    private function markOccupiedSpaces($x, $y, $topRight = false)
     {
         $calculatedX = $x;
         $calculatedY = $y;
 
         while (( ($topRight && $calculatedX >= 0) || (!$topRight && $calculatedX < 7) ) && $calculatedY < 7) {
             if (!$this->pieces[$calculatedX][$calculatedY]) {
-                $this->squares[$calculatedX][$calculatedY] = true;
+                $this->attackableSquares[$calculatedX][$calculatedY] = true;
             }
             if ($topRight) {
                 $calculatedX--;

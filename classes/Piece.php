@@ -1,17 +1,21 @@
 <?php
 
-class Piece
+namespace Chess;
+
+abstract class Piece
 {
     protected $pieces;
-    protected $squares;
+    protected $attackableSquares;
 
-    function __construct()
+    public function __construct()
     {
         $this->pieces = array_fill(0, 7, array_fill(0, 7, false));
-        $this->squares = array_fill(0, 7, array_fill(0, 7, false));
+        $this->attackableSquares = array_fill(0, 7, array_fill(0, 7, false));
     }
 
-    function getPositions()
+    abstract public function place($x, $y);
+
+    public function getPositions()
     {
         return $this->pieces;
     }
@@ -24,12 +28,11 @@ class Piece
      *
      * @return x and y array if a free spot has been found
      */
-    function searchFirstFreeSquare($xOffset = 0, $yOffset = 0)
+    public function searchFirstFreeSquare($xOffset = 0, $yOffset = 0)
     {
         for ($y = $yOffset; $y < 7; $y++) {
             for ($x = $xOffset; $x < 7; $x++) {
-
-                if ($this->pieces[$x][$y] || $this->squares[$x][$y]) {
+                if ($this->pieces[$x][$y] || $this->attackableSquares[$x][$y]) {
                     continue;
                 }
 
